@@ -1,0 +1,15 @@
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: sqlserver-container
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=sqlserver@2023
+    ports:
+      - "1433:1433"
+    networks:
+      - sql_network
+
+networks:
+  sql_network:
+    driver: bridge
