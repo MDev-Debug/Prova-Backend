@@ -14,9 +14,8 @@ public class TarefaRepository : ITarefaRepository
         _context = context;
     }
 
-    public async Task<Tarefa> CriarTarefaAsync(Tarefa tarefa, Guid usuarioId)
+    public async Task<Tarefa> CriarTarefaAsync(Tarefa tarefa)
     {
-        tarefa.IdUsuario = usuarioId;
         _context.Tarefas.Add(tarefa);
         await _context.SaveChangesAsync();
 
@@ -26,20 +25,20 @@ public class TarefaRepository : ITarefaRepository
     public async Task<List<Tarefa>> ObterTarefasPorUsuarioAsync(Guid usuarioId)
     {
         return await _context.Tarefas
-            .Where(t => t.IdUsuario == usuarioId)
+            .Where(t => t.AccountId == usuarioId)
             .ToListAsync();
     }
 
     public async Task<Tarefa> ObterTarefaPorIdAsync(Guid tarefaId, Guid usuarioId)
     {
         return await _context.Tarefas
-            .FirstOrDefaultAsync(t => t.Id == tarefaId && t.IdUsuario == usuarioId);
+            .FirstOrDefaultAsync(t => t.Id == tarefaId && t.AccountId == usuarioId);
     }
 
     public async Task<Tarefa> AtualizarTarefaAsync(Guid tarefaId, Tarefa tarefaAtualizada, Guid usuarioId)
     {
         var tarefa = await _context.Tarefas
-            .FirstOrDefaultAsync(t => t.Id == tarefaId && t.IdUsuario == usuarioId);
+            .FirstOrDefaultAsync(t => t.Id == tarefaId && t.AccountId == usuarioId);
 
         if (tarefa == null)
             return null;
@@ -57,7 +56,7 @@ public class TarefaRepository : ITarefaRepository
     public async Task<bool> ExcluirTarefaAsync(Guid tarefaId, Guid usuarioId)
     {
         var tarefa = await _context.Tarefas
-            .FirstOrDefaultAsync(t => t.Id == tarefaId && t.IdUsuario == usuarioId);
+            .FirstOrDefaultAsync(t => t.Id == tarefaId && t.AccountId == usuarioId);
 
         if (tarefa == null)
             return false;

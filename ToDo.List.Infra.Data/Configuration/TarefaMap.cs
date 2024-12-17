@@ -8,7 +8,7 @@ public class TarefaMap : IEntityTypeConfiguration<Tarefa>
 {
     public void Configure(EntityTypeBuilder<Tarefa> builder)
     {
-        builder.ToTable("Tarefas");
+        builder.ToTable("Tarefa");
 
         builder.HasKey(x => x.Id);
 
@@ -30,8 +30,9 @@ public class TarefaMap : IEntityTypeConfiguration<Tarefa>
             .HasColumnName("DataConclusao")
             .IsRequired();
 
-        builder.Property(x => x.IdUsuario)
+        builder.Property(x => x.AccountId)
             .HasColumnName("IdUsuario")
             .IsRequired();
+
     }
 }

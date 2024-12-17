@@ -34,7 +34,7 @@ public class AccountRequestValidator : AbstractValidator<AccountRequestDTO>
             .NotNull().WithMessage("Senha deve ser preenchida")
             .Must(p => Regex.IsMatch(p, @"^(?=.*[a-z])(?=.*[A-Z])(?=.*[^\da-zA-Z]).{6,}$"))
                 .WithMessage("Senha deve ter letras maiusculas, minusculas e numeros")
-            .OverridePropertyName("Passord")
+            .OverridePropertyName("Senha")
             .WithErrorCode("5");
     }
 

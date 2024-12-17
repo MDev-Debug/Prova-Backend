@@ -36,6 +36,7 @@ public static class DependencyInjection
         builder.Services.AddScoped<ITarefaRepository, TarefaRepository>();
         builder.Services.AddScoped<ITokenService, TokenService>();
         builder.Services.AddScoped<IAccountRepository, AccountRepository>();
+        builder.Services.AddScoped<ITarefaService, TarefaService>();
         builder.Services.AddScoped<IAccountService, AccountService>();
 
 

@@ -27,6 +27,8 @@ public class AccountService : IAccountService
         if (accountExists != null)
             return "";
 
+        accountDTO.Senha = HashPassword(accountDTO.Senha);
+
         var account = _mapper.Map<Account>(accountDTO);
         await _accountRepository.CriarConta(account);
 
@@ -49,4 +51,8 @@ public class AccountService : IAccountService
         var token = await _tokenService.GenerateToken(account.Email, account.Id.ToString());
         return token;
     }
+
+    private string HashPassword(string password)
+    => BCrypt.Net.BCrypt.HashPassword(password, 10);
+
 }
